@@ -1,0 +1,343 @@
+<head>
+  
+  <title>Quiz</title>
+  
+  <script>
+    // globals
+    var g_currentWord
+  </script>
+  
+</head>
+
+<body>
+  {{> Main}}
+</body>
+
+<template name="Main">
+	{{#if Step1}}
+		{{> Step1}}
+	{{/if}}
+	{{#if Step2}}
+		{{> Step2}}
+	{{/if}}	
+	{{#if Step3}}
+		{{> Step3}}
+	{{/if}}	
+	{{#if Step4}}
+		{{> Step4}}
+	{{/if}}	
+	{{#if Step5}}
+		{{> Step5}}
+	{{/if}}	
+	{{#if Step6}}
+		{{> Step6}}
+	{{/if}}		
+	{{#if Step7}}
+		{{> Step7}}
+	{{/if}}		
+	{{#if Step8}}
+		{{> Step8}}
+	{{/if}}		
+	{{#if Step9}}
+		{{> Step9}}
+	{{/if}}		
+	{{#if Step10}}
+		{{> Step10}}
+	{{/if}}		
+	{{#if Step11}}
+		{{> Step11}}
+	{{/if}}	
+	{{#if Step12}}
+		{{> Step12}}
+	{{/if}}		
+	{{#if Step13}}
+		{{> Step13}}
+	{{/if}}			
+	{{#if Step14}}
+		{{> Step14}}
+	{{/if}}											
+	{{#if Admin}}
+		{{> Admin}}
+	{{/if}}	
+</template>
+
+<template name="Step1">
+  <div class="box clear">
+  	<label>Test Number: &nbsp;</label>
+	  <input type="text" id="TestNumber"><br/><br/>
+	  <div class="next goButton clear"><a class="goButton" href="#">Go</a></div>
+	</div>
+</template>
+
+<template name="Step2">
+  <div class="box clear">
+    {{#each instructions}}
+		  {{part1}}
+		  <p>{{part2}}</p>
+		  <p>{{part3}}</p>
+		  <p>{{part4}}</p>
+		  <p>{{part5}}</p>
+		  <p>{{part6}}</p>
+		  <p>
+		  11 apples at 33 cents each =  ___________</br>
+		  4 lbs. of onions at $1.15 per pound =  ___________</br>
+		  6 cans of soda at 25 cents each =  ___________</br>
+		  2 gallons of milk at $4.69 each =  ___________</br>
+		  </p>
+		  <p>{{part7}}</p>
+		  <p>{{part8}}</p>
+	  {{/each}}	
+    <div class="next nextButton clear"><a class="nextButton" href="#">Next</a></div></br>
+  </div>
+</template>
+
+<template name="Step3">
+  <div class="box clear">
+    {{#each instructions}}
+  	    {{text}} <strong>{{thinkAload}}</strong><br/><br/>
+  	{{/each}}
+    <div class="next startButton clear"><a class="startButton" href="#">Start</a></div></br>
+  </div>
+</template>
+
+<template name="Step4">
+  <div class="box clear">
+    Frida Kahlo <br/>
+    {{#each paragraph}}
+      <p id="storyText" data-key="{{id}}">
+        {{#each words}}
+  	      <span class="storyWord">&nbsp;{{word}}</span>
+  	    {{/each}}
+      </p>
+    {{/each}}
+    <div class="next nextButton clear"><a class="nextButton" href="#">Next</a></div></br></br>
+  </div>
+</template>
+
+<template name="Step5">
+  <div class="box clear">
+    {{#each instructions}}
+  	  {{text}} <strong>{{thinkAload}}</strong><br/><br/>
+  	{{/each}}
+    <div class="next nextButton clear"><a class="nextButton" href="#">Next</a></div></br>
+  </div>
+</template>
+
+<template name="Step6">
+  <div class="box clear">
+	  {{#each stuff}}
+		{{question}}<br/><br/>
+		{{#each answers}}
+			<label>
+			  <input name="{{questionId}}" data-key="{{id}}" type="radio" value="{{id}}">
+			  {{answer}}
+			</label><br/>
+		{{/each}}
+	  {{/each}}
+	  <br/>
+	  <div class="next nextButton clear"><a class="nextButton" href="#">Next</a></div></br>
+  </div>
+</template>
+
+<template name="Step7">
+  <div class="box clear">
+    {{#each instructions}}
+  	    {{text}} <strong>{{thinkAload}}</strong><br/><br/>
+  	{{/each}}
+    <div class="next startButton clear"><a class="startButton" href="#">Start</a></div></br>
+  </div>
+</template>
+
+<template name="Step8">
+  <div class="box clear">
+    Los Aztecas (Rangel Montemayos)<br/>
+    {{#each paragraph}}
+      <p id="storyText" data-key="{{id}}">
+        {{#each words}}
+  	      <span class="storyWord">&nbsp;{{word}}</span>
+  	    {{/each}}
+      </p>
+    {{/each}}
+    <div class="next nextButton clear"><a class="nextButton" href="#">Next</a></div></br></br>
+  </div>
+</template>
+
+<template name="Step9">
+  <div class="box clear">
+    {{#each instructions}}
+  	  {{text}} <strong>{{thinkAload}}</strong><br/><br/>
+  	{{/each}}
+    <div class="next nextButton clear"><a class="nextButton" href="#">Next</a></div></br>
+  </div>
+</template>
+
+<template name="Step10">
+  <div class="box clear">
+	  {{#each stuff}}
+		{{question}}<br/><br/>
+		{{#each answers}}
+			<label>
+			  <input name="{{questionId}}" data-key="{{id}}" type="radio" value="{{id}}">
+			  {{answer}}
+			</label><br/>
+		{{/each}}
+	  {{/each}}
+	  <br/>
+	  <div class="next nextButton clear"><a class="nextButton" href="#">Next</a></div></br>
+  </div>
+</template>
+
+<template name="Step11">
+  <div class="box clear">
+  	<strong>Post-Test Survey (Step 1 of 3)</strong><br/><br/>
+  	What percentage of the content you just read did you know PRIOR to reading the article?<br/><br/>
+  	<label>
+  	  <input name="pq1" data-key="pq1a1" type="radio" value="pq1a1">
+  	  0%
+  	</label><br/>
+  	<label>
+  	  <input name="pq1" data-key="pq1a2" type="radio" value="pq1a2">
+  	  10%
+  	</label><br/>
+  	<label>
+  	  <input name="pq1" data-key="pq1a3" type="radio" value="pq1a3">
+  	  20%
+  	</label><br/>
+  	<label>
+  	  <input name="pq1" data-key="pq1a4" type="radio" value="pq1a4">
+  	  30%
+  	</label><br/>
+  	<label>
+  	  <input name="pq1" data-key="pq1a5" type="radio" value="pq1a5">
+  	  40%
+  	</label><br/>
+  	<label>
+  	  <input name="pq1" data-key="pq1a6" type="radio" value="pq1a6">
+  	  50%
+  	</label><br/>
+  	<label>
+  	  <input name="pq1" data-key="pq1a7" type="radio" value="pq1a7">
+  	  60%
+  	</label><br/>
+  	<label>
+  	  <input name="pq1" data-key="pq1a8" type="radio" value="pq1a8">
+  	  70%
+  	</label><br/>  	 
+  	<label>
+  	  <input name="pq1" data-key="pq1a9" type="radio" value="pq1a9">
+  	  80%
+  	</label><br/>
+  	<label>
+  	  <input name="pq1" data-key="pq1a10" type="radio" value="pq1a10">
+  	  90%
+  	</label><br/>
+  	<label>
+  	  <input name="pq1" data-key="pq1a11" type="radio" value="pq1a11">
+  	  100%
+  	</label><br/>   	 		
+  	<br/>
+    <div class="next nextButton clear"><a class="nextButton" href="#">Next</a></div></br>
+  </div>
+</template>
+
+<template name="Step12">
+  <div class="box clear">
+  	<strong>Post-Test Survey (Step 2 of 3)</strong><br/><br/>
+  	What percentage of the content you just read did you know PRIOR to reading the article?<br/><br/>
+  	<label>
+  	  <input name="pq2" data-key="pq1a1" type="radio" value="pq1a1">
+  	  0%&nbsp;&nbsp;|
+  	</label>
+  	<label>
+  	  <input name="pq2" data-key="pq1a2" type="radio" value="pq1a2">
+  	  10%&nbsp;&nbsp;|
+  	</label>
+  	<label>
+  	  <input name="pq2" data-key="pq1a3" type="radio" value="pq1a3">
+  	  20%&nbsp;&nbsp;|
+  	</label>
+  	<label>
+  	  <input name="pq2" data-key="pq1a4" type="radio" value="pq1a4">
+  	  30%&nbsp;&nbsp;|
+  	</label>
+  	<label>
+  	  <input name="pq2" data-key="pq1a5" type="radio" value="pq1a5">
+  	  40%&nbsp;&nbsp;|
+  	</label>
+  	<label>
+  	  <input name="pq2" data-key="pq1a6" type="radio" value="pq1a6">
+  	  50%&nbsp;&nbsp;|
+  	</label>
+  	<label>
+  	  <input name="pq2" data-key="pq1a7" type="radio" value="pq1a7">
+  	  60%&nbsp;&nbsp;|
+  	</label>
+  	<label>
+  	  <input name="pq2" data-key="pq1a8" type="radio" value="pq1a8">
+  	  70%&nbsp;&nbsp;|
+  	</label>  	 
+  	<label>
+  	  <input name="pq2" data-key="pq1a9" type="radio" value="pq1a9">
+  	  80%&nbsp;&nbsp;|
+  	</label>
+  	<label>
+  	  <input name="pq2" data-key="pq1a10" type="radio" value="pq1a10">
+  	  90%&nbsp;&nbsp;|
+  	</label>
+  	<label>
+  	  <input name="pq2" data-key="pq1a11" type="radio" value="pq1a11">
+  	  100%
+  	</label><br/>   	 		
+  	<br/>
+    <div class="next nextButton clear"><a class="nextButton" href="#">Next</a></div></br>
+  </div>
+</template>
+
+<template name="Step13">
+  <div class="box clear">
+  	<strong>Post-Test Survey (Step 3 of 3)</strong><br/><br/>
+  	Please rate your effort on the activities you completed during today’s session on a scale of 1 to 5.<br/><br/>
+  	<label>
+  	  <input name="pq2" data-key="pq1a1" type="radio" value="pq1a1">
+  	  1&nbsp;Low&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  	</label>
+  	<label>
+  	  <input name="pq2" data-key="pq1a2" type="radio" value="pq1a2">
+  	  2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  	</label>
+  	<label>
+  	  <input name="pq2" data-key="pq1a3" type="radio" value="pq1a3">
+  	  3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  	</label>
+  	<label>
+  	  <input name="pq2" data-key="pq1a4" type="radio" value="pq1a4">
+  	  4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  	</label>
+  	<label>
+  	  <input name="pq2" data-key="pq1a5" type="radio" value="pq1a5">
+  	  5&nbsp;High
+  	</label> 		
+  	<br/><br/>
+    <div class="next nextButton clear"><a class="nextButton" href="#">Next</a></div></br>
+  </div>
+</template>
+
+<template name="Step14">
+  <div class="box clear">
+      Thanks for your help.
+  </div>
+</template>
+
+<template name="Admin">
+  <div class="box clear">
+      Admin page goes here...<br/>
+	  {{#each stuff}}
+		{{testNumber}}<br/>
+		{{#each testResults}}
+		  questionId: {{questionId}} answer: {{answer}} {{score}} <br/>
+		{{/each}}
+	  {{/each}}      
+  </div>
+</template>
+
+

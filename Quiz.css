@@ -1,0 +1,54 @@
+body {
+    background: none repeat scroll 0 0 #eee;
+    color: #666666;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 100%;
+    line-height: 1.7;
+}
+
+.highlight {
+	background-color: yellow;
+}
+
+.box {
+    left: 5%;
+    position: absolute;
+    top: 50px;
+    width: 800px;
+}
+
+.clear {
+    margin: 0;
+    padding: 0;
+}
+
+.next {
+  height: 26px; 
+  width: 50px;
+  margin-top: 8px;
+  cursor: pointer; 
+  padding: 5px 10px;
+  font-size: 16px;
+  padding: 5px 10px;
+  color: #4c4c4c;
+  border-radius: 4px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+  background: #6fb2e5;
+  box-shadow: 0 1px 5px #0061aa, inset 0 10px 20px #b6f9ff;
+  -o-box-shadow: 0 1px 5px #0061aa, inset 0 10px 20px #b6f9ff;
+  -webkit-box-shadow: 0 1px 5px #0061aa, inset 0 10px 20px #b6f9ff;
+  -moz-box-shadow: 0 1px 5px #0061aa, inset 0 10px 20px #b6f9ff;
+  text-decoration: none;
+}
+
+.next  {
+  background: #77d125;
+  box-shadow: 0 1px 5px #3caa00, inset 0 10px 20px #c9ffb6;
+  -o-box-shadow: 0 1px 5px #3caa00, inset 0 10px 20px #c9ffb6;
+  -webkit-box-shadow: 0 1px 5px #3caa00, inset 0 10px 20px #c9ffb6;
+  -moz-box-shadow: 0 1px 5px #3caa00, inset 0 10px 20px #c9ffb6;
+}
+
+.next a {
+  text-decoration: none;
+}

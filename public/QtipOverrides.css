@@ -1,0 +1,27 @@
+#qtip-overlay div {
+	background-color: #fff;
+	opacity: 0;
+}
+
+.ui-tooltip, .qtip {
+	min-width: 400px;
+}
+
+.ui-tooltip, .qtip {
+	font-size: 16px;
+	line-height: 28px;
+}
+
+.ui-tooltip-content {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	padding-bottom: 10px;
+}
+
+.ui-tooltip-titlebar {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.buttonSet {
+	float: right;
+}  
+
