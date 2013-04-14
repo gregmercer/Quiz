@@ -152,6 +152,7 @@
   <div id="container">
     <span id="countdown-time"></span>
   </div>  
+  <div id="page-blocker"></div>    
   <div class="box clear">
     Los Aztecas (Rangel Montemayos)<br/>
     {{#each paragraph}}
@@ -198,7 +199,7 @@
     
     <div class="radio-toolbar1">
        
-        <input type="radio" id="s1r1" name="survey1" value="s1r1" checked>
+        <input type="radio" id="s1r1" name="survey1" value="s1r1">
         <label for="s1r1">0%</label>
 
         <input type="radio" id="s1r2" name="survey1"value="s1r2">
@@ -233,18 +234,19 @@
 
     </div><br/>
 
-    <div class="next nextButton clear"><a class="nextButton" href="#">Next</a></div></br>
+    <div class="next nextButton clear" id="nextPollButton1"><a class="nextButton" href="#">Next</a></div></br>
   </div>
 </template>
 
 <template name="Step12">
   <div class="box clear">
   	<strong>Post-Test Survey (Step 2 of 3)</strong><br/><br/>
-  	What percentage of the content you just read did you know PRIOR to reading the article?<br/><br/>
+
+  	What percentage of the comprehension questions did the knowledge you had PRIOR to reading the Aztecs article help you to answer.<br/><br/>
 
     <div class="radio-toolbar2">
        
-        <input type="radio" id="s2r1" name="survey2" value="s2r1" checked>
+        <input type="radio" id="s2r1" name="survey2" value="s2r1">
         <label for="s2r1">0%</label>
 
         <input type="radio" id="s2r2" name="survey2"value="s2r2">
@@ -279,7 +281,7 @@
 
     </div><br/>
 
-    <div class="next nextButton clear"><a class="nextButton" href="#">Next</a></div></br>
+    <div class="next nextButton clear" id="nextPollButton2"><a class="nextButton" href="#">Next</a></div></br>
   </div>
 </template>
 
@@ -290,7 +292,7 @@
 
     <div class="radio-toolbar3">
        
-        <input type="radio" id="s3r1" name="survey3" value="s3r1" checked>
+        <input type="radio" id="s3r1" name="survey3" value="s3r1">
         <label for="s3r1">1 Low</label>
 
         <input type="radio" id="s3r2" name="survey3"value="s3r2">
@@ -307,7 +309,7 @@
 
     </div><br/>
 
-    <div class="next nextButton clear"><a class="nextButton" href="#">Next</a></div></br>
+    <div class="next nextButton clear" id="nextPollButton3"><a class="nextButton" href="#">Next</a></div></br>
   </div>
 </template>
 

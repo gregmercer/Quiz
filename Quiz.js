@@ -21,7 +21,7 @@
 
 ==========================================================================================*/
 
-var devTesting = true;
+var devTesting = false;
 
 var PracticeQuestions = new Meteor.Collection("PracticeQuestions");
 var PracticeQuestionAnswers = new Meteor.Collection("PracticeQuestionAnswers");
@@ -63,7 +63,7 @@ var get = function(id) {
 // The countdown timer.
 var counter = function() {
 
-  var end, delta, counter_element;
+  var end, delta, counter_element, counter_id;
 
   function formatNumber(n) {
     return ((n < 10) ? "0" : "") + n;
@@ -87,16 +87,23 @@ var counter = function() {
       counter_element.innerHTML = hh + ':' + mm + ':' + ss;
     } else {
       counter_element.innerHTML = 'Time over!';
-      console.log('Time over!');
-      clearInterval(timer_interval);
-      endStoryOnTimeLimit(STORYTYPE_STORY);
+      stopStoryTimer();
+      $("#page-blocker").show();
+      var reply = confirm("Confirm");
+      saveStoryTimeOut(reply);
+      $("#page-blocker").hide();
+      $("#container").hide();
+      if (reply == true) {
+        endStoryOnTimeLimit(STORYTYPE_STORY);
+      }
     }
 
   }; // end updateCountDown()
 
   return {
-    init: function (seconds, counter_id) {
+    init: function (seconds, id) {
       console.log('in init()');
+      counter_id = id;
       counter_element = get(counter_id);
       end = new Date().getTime() + (1000 * seconds);
       updateCountDown();
@@ -294,7 +301,7 @@ if (Meteor.is_client) {
   Template.Main.Step11 = function() {
   
     // Poll Step 1 of 3
-    
+
     return doStep("11");
   
   };  
@@ -798,7 +805,7 @@ if (Meteor.is_client) {
   
     // Poll Step 1 of 3
   
-    'click .nextButton' : function () {
+    'click #nextPollButton1' : function () {
     
       console.log('step11 click');
       
@@ -806,6 +813,8 @@ if (Meteor.is_client) {
       if (reply == false) {
         return;
       }       
+
+      savePollAnswer('survey1');
       
       setCurrentStep("12");
     
@@ -817,7 +826,7 @@ if (Meteor.is_client) {
   
     // Poll Step 2 of 3
   
-    'click .nextButton' : function () {
+    'click #nextPollButton2' : function () {
     
       console.log('step12 click');
       
@@ -825,6 +834,8 @@ if (Meteor.is_client) {
       if (reply == false) {
         return;
       }       
+
+      savePollAnswer('survey2');
       
       setCurrentStep("13");
     
@@ -836,7 +847,7 @@ if (Meteor.is_client) {
   
     // Poll Step 3 of 3
   
-    'click .nextButton' : function () {
+    'click #nextPollButton3' : function () {
     
       console.log('step13 click');
       
@@ -844,6 +855,8 @@ if (Meteor.is_client) {
       if (reply == false) {
         return;
       }       
+
+      savePollAnswer('survey3');
       
       setCurrentStep("14");
     
@@ -990,8 +1003,10 @@ if (Meteor.is_client) {
                      words: null, 
                      storyPracticeTime: 0, 
                      questionPracticeTime: 0,
+                     storyTimeOut: '',
                      storyTime: 0, 
-                     questionTime: 0 });   
+                     questionTime: 0,
+                     pollAnswers: null });   
       console.log('after Results.insert');        
     } else {
         // remove previous result, and start over
@@ -1004,8 +1019,10 @@ if (Meteor.is_client) {
                      words: null, 
                      storyPracticeTime: 0, 
                      questionPracticeTime: 0,
+                     storyTimeOut: '',
                      storyTime: 0, 
-                     questionTime: 0 });     
+                     questionTime: 0,
+                     pollAnswers: null });   
     }
 
   }; // end createResult()
@@ -1184,7 +1201,9 @@ if (Meteor.is_client) {
     saveStoryTime(storyType);   
     
     // save the selected words in the story
-    saveWords(storyType);     
+    saveWords(storyType);   
+
+    stopStoryTimer();  
 
   }; // end endStory() 
 
@@ -1327,8 +1346,10 @@ if (Meteor.is_client) {
                      words: newResult.words, 
                      storyPracticeTime: newResult.storyPracticeTime, 
                      questionPracticeTime: newResult.questionPracticeTime,
+                     storyTimeOut: newResult.storyTimeOut,
                      storyTime: newResult.storyTime, 
-                     questionTime: newResult.questionTime });    
+                     questionTime: newResult.questionTime,
+                     pollAnswers: newResult.pollAnswers });    
 
   }; // end resultsInsert()
 
@@ -1590,6 +1611,77 @@ if (Meteor.is_client) {
     Session.set('testNumber',testNumber);
   };  
 
+  function saveStoryTimeOut(reply) {
+    
+    var testNumber = getTestNumber();
+  
+    var result = Results.find({ testNumber: testNumber });
+  
+    var newResult = null;
+  
+    result.forEach(function(data) {
+      
+      if (reply == true) {
+        data.storyTimeOut = 'next page';
+      } 
+      if (reply == false) {
+        data.storyTimeOut = 'stay';
+      }   
+      
+      newResult = data;     
+  
+    }); 
+  
+    resultsInsert(testNumber, newResult);    
+
+    console.log('saveStoryTimeOut storyTimeOut = '+newResult.storyTimeOut);       
+  }  
+
+  function savePollAnswer(pollId) {   
+  
+    console.log('in savePollAnswer pollId = '+pollId);
+
+    var answerRadio = $('input[name=' + pollId + ']');
+    if (answerRadio.length == 0) {
+      console.log('savePollAnswer answerRadio.length = '+answerRadio.length);
+      return false;
+    }
+  
+    var checkedValue = answerRadio.filter(':checked').val();
+    if (checkedValue == undefined) {
+      alert("Please select an answer.");
+      return false;
+    }
+
+    var testNumber = getTestNumber();
+  
+    var result = Results.find({ testNumber: testNumber });
+  
+    var newResult = null;
+  
+    result.forEach(function(data) {
+
+      if (data.pollAnswers == null) {
+        data.pollAnswers = new Array();
+      }
+      
+      data.pollAnswers.push({ pollId : pollId, answer: checkedValue });         
+      
+      newResult = data;     
+  
+    }); 
+  
+    resultsInsert(testNumber, newResult);    
+
+    console.log('savePollAnswer checkedValue = '+checkedValue);
+
+  };  
+
+  function stopStoryTimer() {
+    console.log('stopStoryTimer called');
+    clearInterval(timer_interval);
+  }
+
 }
 
 /*=========================================================================================
@@ -1625,7 +1717,7 @@ if (Meteor.is_server) {
     });      
 */
 
-/* comment out when running locally */
+/* comment out when running locally  */
     Results.allow({
       'insert': function (userId,doc) { return true; },
       'remove': function (userId,doc) { return true; }

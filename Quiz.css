@@ -95,6 +95,21 @@ body {
     border: 1px solid #BD362F;
 }
 
+/* Blocking layer */
+
+#page-blocker {
+    position:fixed;
+    top: 0;
+    left: 0;
+    width: 10000000px;
+    height: 10000000px;
+    z-index: 444444444;
+    display: none;
+    padding: 0 0px;
+    background-color: rgb(255,255,255);
+    background-color: rgba(0,0,0,1);
+}
+
 /* Radio Toolbars - used in the survey questions at the end of the app */
 
 .radio-toolbar1 input[type="radio"] {
