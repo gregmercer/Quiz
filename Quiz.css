@@ -29,6 +29,8 @@ body {
     padding: 0;
 }
 
+/* Next Button */
+
 .next {
   height: 26px; 
   width: 50px;
@@ -60,6 +62,8 @@ body {
   text-decoration: none;
 }
 
+/* Container for the Countdown Timer */
+
 #container * {
     font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size:1em;
@@ -89,4 +93,54 @@ body {
 #container.warn{
     background-color: #D86761;
     border: 1px solid #BD362F;
+}
+
+/* Radio Toolbars - used in the survey questions at the end of the app */
+
+.radio-toolbar1 input[type="radio"] {
+    display:none; 
+}
+
+.radio-toolbar1 label {
+    display:inline-block;
+    background-color:#ddd;
+    padding:4px 11px;
+    font-family:Arial;
+    font-size:16px;
+}
+
+.radio-toolbar1 input[type="radio"]:checked + label { 
+    background-color:yellow;
+}
+
+.radio-toolbar2 input[type="radio"] {
+    display:none; 
+}
+
+.radio-toolbar2 label {
+    display:inline-block;
+    background-color:#ddd;
+    padding:4px 11px;
+    font-family:Arial;
+    font-size:16px;
+}
+
+.radio-toolbar2 input[type="radio"]:checked + label { 
+    background-color:yellow;
+}
+
+.radio-toolbar3 input[type="radio"] {
+    display:none; 
+}
+
+.radio-toolbar3 label {
+    display:inline-block;
+    background-color:#ddd;
+    padding:4px 11px;
+    font-family:Arial;
+    font-size:16px;
+}
+
+.radio-toolbar3 input[type="radio"]:checked + label { 
+    background-color:yellow;
 }
