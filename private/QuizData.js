@@ -49,10 +49,10 @@ PracticeQuestions.insert(
 	"question":"2. She survived, but:",
 	"answers":
 		[
-			{"id":"pq2a1",questionId:"pq2","answer":"a. one of her arms were left shortened."}, 
-			{"id":"pq2a2",questionId:"pq2","answer":"b. one of her legs were left shortened."},
-			{"id":"pq2a3",questionId:"pq2","answer":"c. two of her fingers were left thinner."},
-			{"id":"pq2a4",questionId:"pq2","answer":"d. she lost her sense of hearing."}
+			{"id":"pq2a1",questionId:"pq2","answer":"a. she lost her sense of hearing."},		
+			{"id":"pq2a2",questionId:"pq2","answer":"b. one of her arms were left shortened."}, 
+			{"id":"pq2a3",questionId:"pq2","answer":"c. one of her legs were left shortened."},
+			{"id":"pq2a4",questionId:"pq2","answer":"d. two of her fingers were left thinner."}
 		],
 	"questionId":"pq2"
   }  

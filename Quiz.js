@@ -1,4 +1,28 @@
 
+/*=========================================================================================
+
+  // step 1 - TestNumber form
+  // step 2 - Think Aload Intructions  
+  // step 3 - Practice Reading Instructions
+  // step 4 - Practice Story
+  // step 5 - Practice Question Instructions  
+  // step 6 - Practice Questions  
+  // step 7 - Reading Instructions
+  // step 8 - Story
+  // step 9 - Question Instructions
+  // step 10 - Questions
+  // step 11 - Thanks    
+
+==========================================================================================*/
+
+/*=========================================================================================
+
+  Globals
+
+==========================================================================================*/
+
+var devTesting = true;
+
 var PracticeQuestions = new Meteor.Collection("PracticeQuestions");
 var PracticeQuestionAnswers = new Meteor.Collection("PracticeQuestionAnswers");
 var PracticeStory = new Meteor.Collection("PracticeStory");
@@ -25,13 +49,82 @@ var SESSION_CURRENTSTEP = "currentStep";
 
 /*=========================================================================================
 
-step 1 - TestNumber form
-step 2 - Think Aload Intructions
-step 3 - Reading Instructions
-step 4 - Story
-step 5 - Question Instructions
-step 6 - Questions
-step 7 - Thanks
+  Countdown Timer code 
+
+==========================================================================================*/
+
+var timer_interval = 0;
+
+// getElementById alias.
+var get = function(id) {
+  return document.getElementById(id);
+};
+
+// The countdown timer.
+var counter = function() {
+
+  var end, delta, counter_element;
+
+  function formatNumber(n) {
+    return ((n < 10) ? "0" : "") + n;
+  };
+
+  function updateCountDown() {
+
+    delta = end - (new Date().getTime());
+
+    var bar_container = get('container');
+
+    if (delta <= 60000) { // warn when 1 min left
+      bar_container.className = 'warn';
+    }
+
+    if (delta >=0){
+      var d = new Date(delta);
+      var hh = formatNumber(d.getUTCHours());
+      var mm = formatNumber(d.getUTCMinutes());
+      var ss = formatNumber(d.getUTCSeconds());
+      counter_element.innerHTML = hh + ':' + mm + ':' + ss;
+    } else {
+      counter_element.innerHTML = 'Time over!';
+      console.log('Time over!');
+      clearInterval(timer_interval);
+      endStoryOnTimeLimit(STORYTYPE_STORY);
+    }
+
+  }; // end updateCountDown()
+
+  return {
+    init: function (seconds, counter_id) {
+      console.log('in init()');
+      counter_element = get(counter_id);
+      end = new Date().getTime() + (1000 * seconds);
+      updateCountDown();
+      timer_interval = setInterval(updateCountDown, 990);
+    }
+  };
+
+}(); // end counter (object)
+
+function initCounter() {
+
+  var timeLimit = getStoryTimeLimit();
+  console.log('story time limit = '+timeLimit);
+
+  if (timeLimit == -1) {
+    // no time limit
+    return;
+  }
+
+  // Initialize countdown.
+  console.log('before call to counter.init()');
+  counter.init(timeLimit, 'countdown-time');  
+
+}
+
+/*=========================================================================================
+
+  Client code 
 
 ==========================================================================================*/
 
@@ -162,6 +255,12 @@ if (Meteor.is_client) {
   Template.Main.Step8 = function() {
   
     // Story	
+
+    if (getCurrentStep() == "8") {
+      Meteor.defer(function () { 
+        initCounter();
+      });    
+    }
 
     return doStep("8");
   
@@ -761,9 +860,11 @@ if (Meteor.is_client) {
   function initApp() {
   
     var numberOfPracticeQuestions = PracticeQuestions.find({}).count();
+    console.log('numberOfPracticeQuestions = '+numberOfPracticeQuestions);
     setNumQuestions(QUESTIONTYPE_PRACTICEQUESTION, numberOfPracticeQuestions);
-    
+
     var numberOfQuestions = Questions.find({}).count();
+    console.log('numberOfQuestions = '+numberOfQuestions);    
     setNumQuestions(QUESTIONTYPE_QUESTION, numberOfQuestions);
 
   }; // end initApp() 
@@ -783,6 +884,14 @@ if (Meteor.is_client) {
     Session.set(SESSION_CURRENTSTEP, stepId);
 
   }; // end setCurrentStep
+
+  function goNextStep() {
+
+    var stepId = Session.get(SESSION_CURRENTSTEP);
+    stepId++;
+    setCurrentStep(stepId);
+
+  }; // end goNextStep  
 
   function getCurrentStep() {
 
@@ -828,6 +937,41 @@ if (Meteor.is_client) {
     return false;
   
   }; // storyWithWordSelectionOnly() 
+
+  function getStoryTimeLimit() {
+
+    // 0 No Time limit 
+    // 1 Time limit 3:30
+    // 2 Time limit 4:00
+    // 3 Time limit 4:30
+
+    if (devTesting) {
+      return 60;      
+    }
+
+    var testNumber = getTestNumber();    
+    
+    var thirdNumber = testNumber.charAt(2);
+
+    if (thirdNumber == 0) {
+      return -1;
+    }
+
+    if (thirdNumber == 1) {
+      return 60 * 3.5;
+    }
+
+    if (thirdNumber == 2) {
+      return 60 * 4;
+    }
+
+    if (thirdNumber == 3) {
+      return 60 * 4.5;
+    }        
+    
+    return -1;
+  
+  }; // getStoryTimeLimit()   
   
   function createResult(testNumber) {
 
@@ -1044,6 +1188,11 @@ if (Meteor.is_client) {
 
   }; // end endStory() 
 
+  function endStoryOnTimeLimit(storyType) {
+      endStory(storyType);
+      goNextStep();  
+  }; // end endStoryOnTimeLimit()       
+
   function getStory(storyType) {
 
     var storyId = 0;
@@ -1131,6 +1280,8 @@ if (Meteor.is_client) {
     if (questionNumber > getNumQuestions(questionType)) {
       
       // no more questions, go to finish page
+
+      console.log('no more question, go to next page');
       
       var endTime = new Date();
       setQuestionEndTime(questionType, endTime);    
@@ -1220,10 +1371,12 @@ if (Meteor.is_client) {
   
   function doConfirm() {
   
-    //var reply = confirm("Confirm");
-    //return reply;    
-	
-    return true;
+    if (devTesting) {
+      return true;
+    }
+
+    var reply = confirm("Confirm");
+    return reply;   
 
   };
   
@@ -1257,6 +1410,22 @@ if (Meteor.is_client) {
     
     var classes = word.attr("class");
     var index = classes.indexOf("highlight");
+
+    if (storyWithWordSelectionOnly()) {
+
+      if (index == -1) {
+        
+        word.addClass("highlight");
+
+      } else {
+
+        word.removeClass("highlight");
+
+      }         
+
+      return;
+
+    }
     
     if (index == -1) {
       
@@ -1363,7 +1532,9 @@ if (Meteor.is_client) {
   };
 
   function setNumQuestions(questionType,numQuestions) {
-    //numQuestions = 2;
+    if (devTesting) {
+      numQuestions = 2;
+    }
     if (questionType == QUESTIONTYPE_PRACTICEQUESTION) {
       Session.set('numberOfPracticeQuestions',numQuestions);
     } else {
@@ -1453,11 +1624,16 @@ if (Meteor.is_server) {
       'remove': function (userId,doc) { return true; }
     });      
 */
+
+/* comment out when running locally */
     Results.allow({
       'insert': function (userId,doc) { return true; },
       'remove': function (userId,doc) { return true; }
     });
 
+/**/    
+
   });
+
 }
 

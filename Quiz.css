@@ -4,6 +4,13 @@ body {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 100%;
     line-height: 1.7;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;    
 }
 
 .highlight {
@@ -51,4 +58,35 @@ body {
 
 .next a {
   text-decoration: none;
+}
+
+#container * {
+    font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size:1em;
+    line-height: 1.2;
+    color: #fff;
+}
+
+#container {
+    position:fixed;
+    top: 0;
+    left: 400px;
+    cursor:default;
+    font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size:1em;
+    line-height: 1.2;
+    color: #fff !important;
+    z-index: 9999999999;
+    font-weight:bold;
+    padding: 0 5px;
+    background-color: rgb(155,155,155);
+    background-color: rgba(0,0,0,0.2);
+    color: white; text-shadow: black 0.1em 0.1em 0.2em, black 0.1em 0.1em 0.2em;
+    border: 1px solid transparent;
+    border-radius:5px;
+}
+
+#container.warn{
+    background-color: #D86761;
+    border: 1px solid #BD362F;
 }
