@@ -1,0 +1,347 @@
+db.PracticeStory.insert(
+  {
+	"id":"ps1",
+	"paragraphs":
+	  [
+		  {"id":"1","text":"Para mí, Frida Kahlo es una de las más grandes artistas mexicanas. Cuando tenía 5 años sufrió una enfermedad muy grave llamada polio, y Frida sobrevivió, pero una de sus piernas le quedó muy débil, más corta y más delgada que la otra. Su padre era fotógrafo y artista y se cree que mantenía una relación muy profunda con Frida."},
+		  {"id":"2","text":"Ella hacía algunos retratos de sus familiares y amigos, pero sobretodo se pintó a sí misma rodeada de las cosas importantes para ella, y de las cosas que le causaban dolor. Sabemos que Frida pintaba sus sentimientos, sus emociones y su dolor y para ello utilizaba el colorido y las figuras tradicionales de su país y las imágenes religiosas del arte popular mexicano. Su final me parece muy triste y doloroso: el dolor se apoderó de ella impidiéndole hacer una vida normal y un año antes de morir se vieron obligados a amputarle una pierna y luego murió en su casa azul. Sus obras de arte, sin embargo, durarán para siempre."},
+	  ]
+  }
+);
+
+db.PracticeQuestions.insert(
+  {
+	"question":"1. When Frida Kahlo was five years old, she suffered from a disease known as:",
+	"answers":
+		[
+      {"id":"pq1a1",questionId:"pq1","answer":"a.	Tuberculosis"}, 
+      {"id":"pq1a2",questionId:"pq1","answer":"b. Polio."},
+      {"id":"pq1a3",questionId:"pq1","answer":"c. Tetanus."},
+      {"id":"pq1a4",questionId:"pq1","answer":"d. Malaria."}
+		],
+	"questionId":"pq1"
+  }  
+);  
+
+db.PracticeQuestions.insert(
+  {
+	"question":"2. She survived, but:",
+	"answers":
+		[
+			{"id":"pq2a1",questionId:"pq2","answer":"a. she lost her sense of hearing."},		
+			{"id":"pq2a2",questionId:"pq2","answer":"b. one of her arms were left shortened."}, 
+			{"id":"pq2a3",questionId:"pq2","answer":"c. one of her legs were left shortened."},
+			{"id":"pq2a4",questionId:"pq2","answer":"d. two of her fingers were left thinner."}
+		],
+	"questionId":"pq2"
+  }  
+); 
+
+db.PracticeQuestions.insert(
+  {
+	"question":"3. Frida Kahlo mostly painted:",
+	"answers":
+		[
+			{"id":"pq3a1",questionId:"pq3","answer":"a. her family."}, 
+			{"id":"pq3a2",questionId:"pq3","answer":"b. herself."},
+			{"id":"pq3a3",questionId:"pq3","answer":"c. herself and things that were important to her."},
+			{"id":"pq3a4",questionId:"pq3","answer":"d. her family and other things that were important to her."}
+		],
+	"questionId":"pq3"
+  }  
+);  
+
+db.PracticeQuestions.insert(
+  {
+	"question":"4. In her paintings, Frida Kahlo used:",
+	"answers":
+		[
+			{"id":"pq4a1",questionId:"pq4","answer":"a. important figures from her country."}, 
+			{"id":"pq4a2",questionId:"pq4","answer":"b. religious images."},
+			{"id":"pq4a3",questionId:"pq4","answer":"c. lots of colors."},
+			{"id":"pq4a4",questionId:"pq4","answer":"d. All of the above."}
+		],
+	"questionId":"pq4"
+  }  
+); 
+
+db.Questions.insert(
+  {
+	"question":"1. Tonatiuh was the Aztec’s solution to:",
+	"answers":
+		[
+      {"id":"q1a1",questionId:"q1","answer":"a. win battles."}, 
+      {"id":"q1a2",questionId:"q1","answer":"b. unexplicable deaths."},
+      {"id":"q1a3",questionId:"q1","answer":"c. the forces of nature."},
+      {"id":"q1a4",questionId:"q1","answer":"d. find peace."}
+		],
+	"questionId":"q1"
+  }  
+);  
+
+db.Questions.insert(
+  {
+	"question":"2. Tonatiuh possessed the following characteristics:",
+	"answers":
+		[
+			{"id":"q2a1",questionId:"q2","answer":"a. a great supernatural power."}, 
+			{"id":"q2a2",questionId:"q2","answer":"b. human strengths, but accompanied by a supernatural power."},
+			{"id":"q2a3",questionId:"q2","answer":"c. human weaknesses, but accompanied by a supernatural power."},
+			{"id":"q2a4",questionId:"q2","answer":"d. human strengths and weaknesses, together with a supernatural power."}
+		],
+	"questionId":"q2"
+  }  
+); 
+
+db.Questions.insert(
+  {
+	"question":"3. The Aztecs performed human sacrifices:",
+	"answers":
+		[
+			{"id":"q3a1",questionId:"q3","answer":"a. to appease Tonatiuh."}, 
+			{"id":"q3a2",questionId:"q3","answer":"b. to appease their gods and also because they were barbaric warriors."},
+			{"id":"q3a3",questionId:"q3","answer":"c. because they were known for their barbaric instincts and cruelty."},
+			{"id":"q3a4",questionId:"q3","answer":"d. All of the above."}
+		],
+	"questionId":"q3"
+  }  
+);
+
+db.Questions.insert(
+  {
+	"question":"4. The Aztecs are the ancestors of:",
+	"answers":
+		[
+			{"id":"q4a1",questionId:"q4","answer":"a. Mexicans"}, 
+			{"id":"q4a2",questionId:"q4","answer":"b. Peruvians"},
+			{"id":"q4a3",questionId:"q4","answer":"c. Argentinians"},
+			{"id":"q4a4",questionId:"q4","answer":"d. Cubans"}
+		],
+	"questionId":"q4"
+  }  
+); 
+
+db.Questions.insert(
+  {
+	"question":"5. The Aztecs constructed:",
+	"answers":
+		[
+			{"id":"q5a1",questionId:"q5","answer":"a. many monuments to honor Tonatiuh."}, 
+			{"id":"q5a2",questionId:"q5","answer":"b. some monuments to honor Tonatiuh."},
+			{"id":"q5a3",questionId:"q5","answer":"c. only one monument to honor Tonatiuh."},
+			{"id":"q5a4",questionId:"q5","answer":"d. three monuments to honor Tonatiuh."}
+		],
+	"questionId":"q5"
+  }  
+); 
+
+db.Questions.insert(
+  {
+	"question":"6. The most important monument in Aztec life was:",
+	"answers":
+		[
+			{"id":"q6a1",questionId:"q6","answer":"a. Jícara de Aguilas."}, 
+			{"id":"q6a2",questionId:"q6","answer":"b. Piedra del Sol."},
+			{"id":"q6a3",questionId:"q6","answer":"c. Cuauhxicalli."},
+			{"id":"q6a4",questionId:"q6","answer":"d. All of the above."}
+		],
+	"questionId":"q6"
+  }  
+); 
+
+db.Questions.insert(
+  {
+	"question":"7. The Calendario Azteca is one of the:",
+	"answers":
+		[
+			{"id":"q7a1",questionId:"q7","answer":"a. largest works of the Aztec culture."}, 
+			{"id":"q7a2",questionId:"q7","answer":"b. most beautiful works of the Aztec culture."},
+			{"id":"q7a3",questionId:"q7","answer":"c. oldest works of the Aztec culture."},
+			{"id":"q7a4",questionId:"q7","answer":"d. None of the above."}
+		],
+	"questionId":"q7"
+  }  
+); 
+
+db.Questions.insert(
+  {
+	"question":"8. The Calendario Azteca was:",
+	"answers":
+		[
+			{"id":"q8a1",questionId:"q8","answer":"a. the famous Aztec calendar known for its accuracy."}, 
+			{"id":"q8a2",questionId:"q8","answer":"b. the name of a well-known museum in Mexico."},
+			{"id":"q8a3",questionId:"q8","answer":"c. a monument made of stone."},
+			{"id":"q8a4",questionId:"q8","answer":"d. a special ritual for Tonatiuh."}		       
+		],
+	"questionId":"q8"
+  }  
+); 
+
+db.Questions.insert(
+  {
+	"question":"9. It is thought that the Aztecs began construction on the monument of Tonatiuh in:",
+	"answers":
+		[
+			{"id":"q9a1",questionId:"q9","answer":"a. 1348."}, 
+			{"id":"q9a2",questionId:"q9","answer":"b. 1454."},
+			{"id":"q9a3",questionId:"q9","answer":"c. 1449."},
+			{"id":"q9a4",questionId:"q9","answer":"d. 1502."}
+		],
+	"questionId":"q9"
+  }  
+); 
+
+db.Questions.insert(
+  {
+	"question":"10. The color of Tonatiuh’s hair was:",
+	"answers":
+		[
+			{"id":"q10a1",questionId:"q10","answer":"a. red."}, 
+			{"id":"q10a2",questionId:"q10","answer":"b. black."},
+			{"id":"q10a3",questionId:"q10","answer":"c. white."},
+			{"id":"q10a4",questionId:"q10","answer":"d. golden."}		       
+		],
+	"questionId":"q10"
+  }  
+); 
+
+db.Questions.insert(
+  {
+	"question":"11. Tonatiuh’s face appears:",
+	"answers":
+		[
+			{"id":"q11a1",questionId:"q11","answer":"a. old."}, 
+			{"id":"q11a2",questionId:"q11","answer":"b. young."},
+			{"id":"q11a3",questionId:"q11","answer":"c. bright."},
+			{"id":"q11a4",questionId:"q11","answer":"d. dark."}		       
+		],
+	"questionId":"q11"
+  }  
+); 
+
+db.Questions.insert(
+  {
+	"question":"12. According to the Aztecs, wrinkles symbolized:",
+	"answers":
+		[
+			{"id":"q12a1",questionId:"q12","answer":"a. maturity."}, 
+			{"id":"q12a2",questionId:"q12","answer":"b. cleverness."},
+			{"id":"q12a3",questionId:"q12","answer":"c. wisdom."},
+			{"id":"q12a4",questionId:"q12","answer":"d. Both A & C."}		       
+		],
+	"questionId":"q12"
+  }  
+); 
+
+db.Questions.insert(
+  {
+	"question":"13. Tonatiuh’s tongue is:",
+	"answers":
+		[
+			{"id":"q13a1",questionId:"q13","answer":"a. extended in the form of a knife."}, 
+			{"id":"q13a2",questionId:"q13","answer":"b. one of the longest among the different gods."},
+			{"id":"q13a3",questionId:"q13","answer":"c. thought to hold magical power."},
+			{"id":"q13a4",questionId:"q13","answer":"d. decorated with magical substance."}		       
+		],
+	"questionId":"q13"
+  }  
+); 
+
+db.Questions.insert(
+  {
+	"question":"14. The magical substance that the Aztecs gave an as offering to Tonatiuh included:",
+	"answers":
+		[
+			{"id":"q14a1",questionId:"q14","answer":"a. a human toe."}, 
+			{"id":"q14a2",questionId:"q14","answer":"b. a human brain."},
+			{"id":"q14a3",questionId:"q14","answer":"c. a human heart."},
+			{"id":"q14a4",questionId:"q14","answer":"d. both a human brain and a human heart."}		       
+		],
+	"questionId":"q14"
+  }  
+); 
+
+db.Questions.insert(
+  {
+	"question":"15. The monument of Tonatiuh was found in:",
+	"answers":
+		[
+			{"id":"q15a1",questionId:"q15","answer":"a. 1790."}, 
+			{"id":"q15a2",questionId:"q15","answer":"b. 1770."},
+			{"id":"q15a3",questionId:"q15","answer":"c. 1750."},
+			{"id":"q15a4",questionId:"q15","answer":"d. 1800."}		       
+		],
+	"questionId":"q15"
+  }  
+); 
+
+db.Questions.insert(
+  {
+	"question":"16. The monument was found",
+	"answers":
+		[
+			{"id":"q16a1",questionId:"q16","answer":"a. face down."}, 
+			{"id":"q16a2",questionId:"q16","answer":"b. face up."},
+			{"id":"q16a3",questionId:"q16","answer":"c. broken into two pieces."},
+			{"id":"q16a4",questionId:"q16","answer":"d. broken into three pieces."}		       
+		],
+	"questionId":"q16"
+  }  
+); 
+
+db.Questions.insert(
+  {
+	"question":"17. In the Calendario Azteca, a carving of:",
+	"answers":
+		[
+			{"id":"q17a1",questionId:"q17","answer":"a. the sun was found."}, 
+			{"id":"q17a2",questionId:"q17","answer":"b. the face of Tonatiuh was found."},
+			{"id":"q17a3",questionId:"q17","answer":"c. the face of the God of the skies was found."},
+			{"id":"q17a4",questionId:"q17","answer":"d. All of the above. "}		       
+		],
+	"questionId":"q17"
+  }  
+); 
+
+db.Questions.insert(
+  {
+	"question":"18. After being found, the Calendario Azteca was originally placed in the:",
+	"answers":
+		[
+			{"id":"q18a1",questionId:"q18","answer":"a. Catedral Metropolitana."}, 
+			{"id":"q18a2",questionId:"q18","answer":"b. Museo Nacional de Historia."},
+			{"id":"q18a3",questionId:"q18","answer":"c. Bosque de Chapultepec."},
+			{"id":"q18a4",questionId:"q18","answer":"d. Museo Nacional de Antropología."}		       
+		],
+	"questionId":"q18"
+  }  
+); 
+
+db.Questions.insert(
+  {
+	"question":"19. Today, the Calendario Azteca can be found in:",
+	"answers":
+		[
+			{"id":"q19a1",questionId:"q19","answer":"a. Museo Nacional de Antropología."}, 
+			{"id":"q19a2",questionId:"q19","answer":"b. Museo Nacional de Historia."},
+			{"id":"q19a3",questionId:"q19","answer":"c. Catedral Metropolitana."},
+			{"id":"q19a4",questionId:"q19","answer":"d. None of the above"}		       
+		],
+	"questionId":"q19"
+  }  
+); 
+
+db.Questions.insert(
+  {
+	"question":"20. The Museo Nacional de Antropología can be found in:",
+	"answers":
+		[
+			{"id":"q20a1",questionId:"q20","answer":"a. the Catedral Metropolitana."}, 
+			{"id":"q20a2",questionId:"q20","answer":"b. the Bosque de Chapultepec."},
+			{"id":"q20a3",questionId:"q20","answer":"c. the Museo Nacional de Historia."},
+			{"id":"q20a4",questionId:"q20","answer":"d. None of the above."}		       
+		],
+	"questionId":"q20"
+  }  
+); 
+

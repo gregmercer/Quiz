@@ -21,7 +21,7 @@
 
 ==========================================================================================*/
 
-var devTesting = false;
+var devTesting = true;
 
 var PracticeQuestions = new Meteor.Collection("PracticeQuestions");
 var PracticeQuestionAnswers = new Meteor.Collection("PracticeQuestionAnswers");
@@ -46,6 +46,47 @@ var STORY_PREFIX_STORY = "s1";
 var STORY_PREFIX_PRACTICE_STORY = "ps1";
 
 var SESSION_CURRENTSTEP = "currentStep";
+
+/*=========================================================================================
+
+  jQuery UI Dialog
+
+==========================================================================================*/
+
+// The confirm dialog.
+
+var confirmDialog = function() {
+
+  function createDialog() {
+
+    $( "#dialog-confirm" ).dialog({
+      autoOpen: false,      
+      resizable: false,
+      height:160,
+      position: [300, 50],
+      modal: true,
+      buttons: {}
+    });
+
+  }; // end createDialog()
+
+  return {
+    init: function () {
+      createDialog();
+    },
+    showDialog: function(title, message, yesButton, noButton) {
+      $( "#dialog-confirm" ).dialog( "option", "title", title );
+      $( "#dialog-confirm" ).text("Would you like to proceed to the next page?");
+      $( "#dialog-confirm" ).dialog( "option", "buttons", [ yesButton, noButton ] );
+      //$( "#dialog-confirm" ).dialog( "option", "position", { at: "center top" } );
+      $( "#dialog-confirm" ).dialog( "option", "position", [300, 50] );
+      $( "#dialog-confirm" ).dialog( "open" );
+      $('.ui-dialog').focus(); 
+      $('.ui-dialog-buttonpane button:eq(0)').focus(); 
+    }    
+  };  
+
+}(); // end confirmDialog (object)  
 
 /*=========================================================================================
 
@@ -86,9 +127,13 @@ var counter = function() {
       var ss = formatNumber(d.getUTCSeconds());
       counter_element.innerHTML = hh + ':' + mm + ':' + ss;
     } else {
+      
       counter_element.innerHTML = 'Time over!';
       stopStoryTimer();
+      
+      /************
       $("#page-blocker").show();
+
       var reply = confirm("Confirm");
       saveStoryTimeOut(reply);
       $("#page-blocker").hide();
@@ -96,6 +141,33 @@ var counter = function() {
       if (reply == true) {
         endStoryOnTimeLimit(STORYTYPE_STORY);
       }
+      ******/
+
+      $("#page-blocker").show();
+
+      var yesButton =  { text: "Yes", click: function() {
+
+        saveStoryTimeOut(true);
+        $("#page-blocker").hide();
+        $("#container").hide();
+        endStoryOnTimeLimit(STORYTYPE_STORY);
+
+        $( this ).dialog( "close" ); 
+
+      }};
+
+      var noButton = { text: "No", click: function() {
+
+        saveStoryTimeOut(false);
+        $("#page-blocker").hide();
+        $("#container").hide();
+
+        $( this ).dialog( "close" ); 
+
+      }};          
+
+      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );
+
     }
 
   }; // end updateCountDown()
@@ -561,41 +633,49 @@ if (Meteor.is_client) {
   Template.Step1.events = {
   
     // TestNumber form
-  
+
     'click .goButton' : function () {
-      
-      console.log('step1 click');
-      
+
       var testNumber = $('#TestNumber').val();
-      console.log('testNumber = '+testNumber);
-      
-      if (testNumber != "") {
-        
-        var reply = doConfirm();
-        
-        if (reply == false) {
+
+      var yesButton =  { text: "Yes", click: function() {
+
+        if (testNumber == "") {
+          alert('Please enter a test number.');
+          $( this ).dialog( "close" ); 
           return;
         }
-        
+          
+        console.log('testNumber = '+testNumber);  
+
         if (testNumber == "abbccc") {
           setCurrentStep("admin");
+          $( this ).dialog( "close" ); 
           return;
         }
         
         createResult(testNumber);
         
-      	console.log('going to step2');
-      	
-      	if (isThinkAload()) {
+        console.log('going to step2');
+
+        if (isThinkAload()) {
           setCurrentStep("2");
         } else {
           setCurrentStep("3");
         }
-        
-      }    
+
+        $( this ).dialog( "close" ); 
+
+      }};
+
+      var noButton = { text: "No", click: function() {
+        $( this ).dialog( "close" ); 
+      }};          
+
+
+      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );
     
     }
-    
   }; 
   
   Template.Step2.events = {
@@ -606,12 +686,19 @@ if (Meteor.is_client) {
       
       console.log('step2 click');
       
-      var reply = doConfirm();
-      if (reply == false) {
-        return;
-      }      
-      
-      setCurrentStep("3");
+      var yesButton =  { text: "Yes", click: function() {
+
+        setCurrentStep("3");
+
+        $( this ).dialog( "close" ); 
+
+      }};
+
+      var noButton = { text: "No", click: function() {
+        $( this ).dialog( "close" ); 
+      }};          
+
+      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );
     
     }
     
@@ -624,15 +711,22 @@ if (Meteor.is_client) {
     'click .startButton' : function () {
     
       console.log('step3 click');
-      
-      var reply = doConfirm();
-      if (reply == false) {
-        return;
-      }      
 
-      startStory(STORYTYPE_PRACTICESTORY);       
-      
-      setCurrentStep("4");
+      var yesButton =  { text: "Yes", click: function() {
+
+        startStory(STORYTYPE_PRACTICESTORY);       
+        
+        setCurrentStep("4");
+
+        $( this ).dialog( "close" ); 
+
+      }};
+
+      var noButton = { text: "No", click: function() {
+        $( this ).dialog( "close" ); 
+      }};          
+
+      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );      
     
     }
     
@@ -645,15 +739,22 @@ if (Meteor.is_client) {
     'click .nextButton' : function () {
       
       console.log('step4 click');
-      
-      var reply = doConfirm();
-      if (reply == false) {
-        return;
-      }         
-      
-      endStory(STORYTYPE_PRACTICESTORY);
-      
-      setCurrentStep("5");
+
+      var yesButton =  { text: "Yes", click: function() {
+
+        endStory(STORYTYPE_PRACTICESTORY);
+        
+        setCurrentStep("5");
+
+        $( this ).dialog( "close" ); 
+
+      }};
+
+      var noButton = { text: "No", click: function() {
+        $( this ).dialog( "close" ); 
+      }};          
+
+      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );         
     
     },
 
@@ -676,15 +777,22 @@ if (Meteor.is_client) {
     'click .nextButton' : function () {
     
       console.log('step5 click');
-      
-      var reply = doConfirm();
-      if (reply == false) {
-        return;
-      }      
-      
-      startQuestion(QUESTIONTYPE_PRACTICEQUESTION);          
-      
-      setCurrentStep("6");
+
+      var yesButton =  { text: "Yes", click: function() {
+
+        startQuestion(QUESTIONTYPE_PRACTICEQUESTION);          
+        
+        setCurrentStep("6");
+
+        $( this ).dialog( "close" ); 
+
+      }};
+
+      var noButton = { text: "No", click: function() {
+        $( this ).dialog( "close" ); 
+      }};          
+
+      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );          
 
     }
     
@@ -697,13 +805,20 @@ if (Meteor.is_client) {
     'click .nextButton' : function () {
       
       console.log('step6 click');
-      
-      var reply = doConfirm();
-      if (reply == false) {
-        return;
-      }         
-          
-      endQuestion(QUESTIONTYPE_PRACTICEQUESTION, "7");   
+
+      var yesButton =  { text: "Yes", click: function() {
+
+        endQuestion(QUESTIONTYPE_PRACTICEQUESTION, "7");   
+
+        $( this ).dialog( "close" ); 
+
+      }};
+
+      var noButton = { text: "No", click: function() {
+        $( this ).dialog( "close" ); 
+      }};          
+
+      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );          
       
     }
     
@@ -716,15 +831,22 @@ if (Meteor.is_client) {
     'click .startButton' : function () {
     
       console.log('step7 click');
-      
-      var reply = doConfirm();
-      if (reply == false) {
-        return;
-      }      
 
-      startStory(STORYTYPE_STORY);       
-      
-      setCurrentStep("8");
+      var yesButton =  { text: "Yes", click: function() {
+
+        startStory(STORYTYPE_STORY);       
+        
+        setCurrentStep("8");
+
+        $( this ).dialog( "close" ); 
+
+      }};
+
+      var noButton = { text: "No", click: function() {
+        $( this ).dialog( "close" ); 
+      }};          
+
+      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );        
     
     }
     
@@ -737,15 +859,22 @@ if (Meteor.is_client) {
     'click .nextButton' : function () {
       
       console.log('step8 click');
-      
-      var reply = doConfirm();
-      if (reply == false) {
-        return;
-      }         
-      
-      endStory(STORYTYPE_STORY);
-      
-      setCurrentStep("9");
+
+      var yesButton =  { text: "Yes", click: function() {
+
+        endStory(STORYTYPE_STORY);
+        
+        setCurrentStep("9");
+
+        $( this ).dialog( "close" ); 
+
+      }};
+
+      var noButton = { text: "No", click: function() {
+        $( this ).dialog( "close" ); 
+      }};          
+
+      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );            
     
     },
 
@@ -768,15 +897,22 @@ if (Meteor.is_client) {
     'click .nextButton' : function () {
     
       console.log('step9 click');
-      
-      var reply = doConfirm();
-      if (reply == false) {
-        return;
-      }      
 
-      startQuestion(QUESTIONTYPE_QUESTION);      
-      
-      setCurrentStep("10");
+      var yesButton =  { text: "Yes", click: function() {
+
+        startQuestion(QUESTIONTYPE_QUESTION);      
+        
+        setCurrentStep("10");
+
+        $( this ).dialog( "close" ); 
+
+      }};
+
+      var noButton = { text: "No", click: function() {
+        $( this ).dialog( "close" ); 
+      }};          
+
+      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );           
 
     }
     
@@ -788,14 +924,21 @@ if (Meteor.is_client) {
     
     'click .nextButton' : function () {
       
-      console.log('step10 click');
-      
-      var reply = doConfirm();
-      if (reply == false) {
-        return;
-      }         
-      
-      endQuestion(QUESTIONTYPE_QUESTION, "11");     
+      console.log('step10 click');   
+
+      var yesButton =  { text: "Yes", click: function() {
+
+        endQuestion(QUESTIONTYPE_QUESTION, "11");   
+
+        $( this ).dialog( "close" ); 
+
+      }};
+
+      var noButton = { text: "No", click: function() {
+        $( this ).dialog( "close" ); 
+      }};          
+
+      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );        
       
     }
     
@@ -808,15 +951,22 @@ if (Meteor.is_client) {
     'click #nextPollButton1' : function () {
     
       console.log('step11 click');
-      
-      var reply = doConfirm();
-      if (reply == false) {
-        return;
-      }       
 
-      savePollAnswer('survey1');
-      
-      setCurrentStep("12");
+      var yesButton =  { text: "Yes", click: function() {
+
+        savePollAnswer('survey1');
+        
+        setCurrentStep("12");
+
+        $( this ).dialog( "close" ); 
+
+      }};
+
+      var noButton = { text: "No", click: function() {
+        $( this ).dialog( "close" ); 
+      }};          
+
+      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );          
     
     }
     
@@ -829,15 +979,22 @@ if (Meteor.is_client) {
     'click #nextPollButton2' : function () {
     
       console.log('step12 click');
-      
-      var reply = doConfirm();
-      if (reply == false) {
-        return;
-      }       
 
-      savePollAnswer('survey2');
-      
-      setCurrentStep("13");
+      var yesButton =  { text: "Yes", click: function() {
+
+        savePollAnswer('survey2');
+        
+        setCurrentStep("13");
+
+        $( this ).dialog( "close" ); 
+
+      }};
+
+      var noButton = { text: "No", click: function() {
+        $( this ).dialog( "close" ); 
+      }};          
+
+      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );        
     
     }
     
@@ -850,15 +1007,22 @@ if (Meteor.is_client) {
     'click #nextPollButton3' : function () {
     
       console.log('step13 click');
-      
-      var reply = doConfirm();
-      if (reply == false) {
-        return;
-      }       
 
-      savePollAnswer('survey3');
-      
-      setCurrentStep("14");
+      var yesButton =  { text: "Yes", click: function() {
+
+        savePollAnswer('survey3');
+        
+        setCurrentStep("14");
+
+        $( this ).dialog( "close" ); 
+
+      }};
+
+      var noButton = { text: "No", click: function() {
+        $( this ).dialog( "close" ); 
+      }};          
+
+      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );          
     
     }
     
@@ -879,6 +1043,8 @@ if (Meteor.is_client) {
     var numberOfQuestions = Questions.find({}).count();
     console.log('numberOfQuestions = '+numberOfQuestions);    
     setNumQuestions(QUESTIONTYPE_QUESTION, numberOfQuestions);
+
+    confirmDialog.init();
 
   }; // end initApp() 
 
@@ -1717,13 +1883,13 @@ if (Meteor.is_server) {
     });      
 */
 
-/* comment out when running locally  */
+/* comment out when running locally  
     Results.allow({
       'insert': function (userId,doc) { return true; },
       'remove': function (userId,doc) { return true; }
     });
 
-/**/    
+*/    
 
   });
 

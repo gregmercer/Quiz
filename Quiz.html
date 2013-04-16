@@ -6,11 +6,37 @@
     // globals
     var g_currentWord
   </script>
+
+  <!--
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.js"></script>
+  <script type="text/javascript" src="http://craigsworks.com/projects/qtip2/packages/latest/jquery.qtip.js"></script>  
+  -->
+
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+  <link rel="stylesheet" href="css/smoothness/jquery-ui-1.10.2.custom.css" />  
+
+  <style>
+  .ui-dialog-titlebar {
+    font-size: 12px;
+  }
+  .ui-dialog .ui-dialog-buttonpane button {
+    font-size: 12px;
+  }
+  #dialog-confirm {
+    height: 50px !important;
+    font-size: 12px;
+  }
+  </style>
   
 </head>
 
 <body>
   {{> Main}}
+  <div id="dialog-confirm" style="display:none;" title="Empty the recycle bin?">
+    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span><span id="dialog-content">Are you sure?</span></p>
+  </div>    
 </body>
 
 <template name="Main">
