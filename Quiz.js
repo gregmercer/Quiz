@@ -21,7 +21,7 @@
 
 ==========================================================================================*/
 
-var devTesting = true;
+var devTesting = false;
 
 var PracticeQuestions = new Meteor.Collection("PracticeQuestions");
 var PracticeQuestionAnswers = new Meteor.Collection("PracticeQuestionAnswers");
@@ -78,7 +78,6 @@ var confirmDialog = function() {
       $( "#dialog-confirm" ).dialog( "option", "title", title );
       $( "#dialog-confirm" ).text("Would you like to proceed to the next page?");
       $( "#dialog-confirm" ).dialog( "option", "buttons", [ yesButton, noButton ] );
-      //$( "#dialog-confirm" ).dialog( "option", "position", { at: "center top" } );
       $( "#dialog-confirm" ).dialog( "option", "position", [300, 50] );
       $( "#dialog-confirm" ).dialog( "open" );
       $('.ui-dialog').focus(); 
@@ -104,7 +103,7 @@ var get = function(id) {
 // The countdown timer.
 var counter = function() {
 
-  var end, delta, counter_element, counter_id;
+  var end, delta, counter_element, counter_id, counter_storyType;
 
   function formatNumber(n) {
     return ((n < 10) ? "0" : "") + n;
@@ -131,26 +130,14 @@ var counter = function() {
       counter_element.innerHTML = 'Time over!';
       stopStoryTimer();
       
-      /************
-      $("#page-blocker").show();
-
-      var reply = confirm("Confirm");
-      saveStoryTimeOut(reply);
-      $("#page-blocker").hide();
-      $("#container").hide();
-      if (reply == true) {
-        endStoryOnTimeLimit(STORYTYPE_STORY);
-      }
-      ******/
-
       $("#page-blocker").show();
 
       var yesButton =  { text: "Yes", click: function() {
 
-        saveStoryTimeOut(true);
+        saveStoryTimeOut(true, counter_storyType);
         $("#page-blocker").hide();
         $("#container").hide();
-        endStoryOnTimeLimit(STORYTYPE_STORY);
+        endStoryOnTimeLimit(counter_storyType);
 
         $( this ).dialog( "close" ); 
 
@@ -158,7 +145,7 @@ var counter = function() {
 
       var noButton = { text: "No", click: function() {
 
-        saveStoryTimeOut(false);
+        saveStoryTimeOut(false, counter_storyType);
         $("#page-blocker").hide();
         $("#container").hide();
 
@@ -173,11 +160,13 @@ var counter = function() {
   }; // end updateCountDown()
 
   return {
-    init: function (seconds, id) {
+    init: function (seconds, id, storyType) {
       console.log('in init()');
       counter_id = id;
+      counter_storyType = storyType;
       counter_element = get(counter_id);
       end = new Date().getTime() + (1000 * seconds);
+      $("#container").show();
       updateCountDown();
       timer_interval = setInterval(updateCountDown, 990);
     }
@@ -185,7 +174,7 @@ var counter = function() {
 
 }(); // end counter (object)
 
-function initCounter() {
+function initCounter(storyType) {
 
   var timeLimit = getStoryTimeLimit();
   console.log('story time limit = '+timeLimit);
@@ -197,7 +186,7 @@ function initCounter() {
 
   // Initialize countdown.
   console.log('before call to counter.init()');
-  counter.init(timeLimit, 'countdown-time');  
+  counter.init(timeLimit, 'countdown-time', storyType);  
 
 }
 
@@ -293,6 +282,12 @@ if (Meteor.is_client) {
   Template.Main.Step4 = function() {
   
     // Practice Story
+
+    if (getCurrentStep() == "4") {
+      Meteor.defer(function () { 
+        initCounter(STORYTYPE_PRACTICESTORY);
+      });    
+    }    
   
     return doStep("4");  
   
@@ -337,7 +332,7 @@ if (Meteor.is_client) {
 
     if (getCurrentStep() == "8") {
       Meteor.defer(function () { 
-        initCounter();
+        initCounter(STORYTYPE_STORY);
       });    
     }
 
@@ -806,20 +801,8 @@ if (Meteor.is_client) {
       
       console.log('step6 click');
 
-      var yesButton =  { text: "Yes", click: function() {
+      endQuestion(QUESTIONTYPE_PRACTICEQUESTION, "7");   
 
-        endQuestion(QUESTIONTYPE_PRACTICEQUESTION, "7");   
-
-        $( this ).dialog( "close" ); 
-
-      }};
-
-      var noButton = { text: "No", click: function() {
-        $( this ).dialog( "close" ); 
-      }};          
-
-      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );          
-      
     }
     
   };
@@ -926,19 +909,7 @@ if (Meteor.is_client) {
       
       console.log('step10 click');   
 
-      var yesButton =  { text: "Yes", click: function() {
-
-        endQuestion(QUESTIONTYPE_QUESTION, "11");   
-
-        $( this ).dialog( "close" ); 
-
-      }};
-
-      var noButton = { text: "No", click: function() {
-        $( this ).dialog( "close" ); 
-      }};          
-
-      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );        
+      endQuestion(QUESTIONTYPE_QUESTION, "11");       
       
     }
     
@@ -1170,6 +1141,7 @@ if (Meteor.is_client) {
                      storyPracticeTime: 0, 
                      questionPracticeTime: 0,
                      storyTimeOut: '',
+                     storyPracticeTimeOut: '',
                      storyTime: 0, 
                      questionTime: 0,
                      pollAnswers: null });   
@@ -1186,6 +1158,7 @@ if (Meteor.is_client) {
                      storyPracticeTime: 0, 
                      questionPracticeTime: 0,
                      storyTimeOut: '',
+                     storyPracticeTimeOut: '',
                      storyTime: 0, 
                      questionTime: 0,
                      pollAnswers: null });   
@@ -1369,7 +1342,8 @@ if (Meteor.is_client) {
     // save the selected words in the story
     saveWords(storyType);   
 
-    stopStoryTimer();  
+    stopStoryTimer(); 
+    $("#container").hide(); 
 
   }; // end endStory() 
 
@@ -1514,6 +1488,7 @@ if (Meteor.is_client) {
                      questionPracticeTime: newResult.questionPracticeTime,
                      storyTimeOut: newResult.storyTimeOut,
                      storyTime: newResult.storyTime, 
+                     storyPracticeTimeOut: newResult.storyPracticeTimeOut,
                      questionTime: newResult.questionTime,
                      pollAnswers: newResult.pollAnswers });    
 
@@ -1777,7 +1752,7 @@ if (Meteor.is_client) {
     Session.set('testNumber',testNumber);
   };  
 
-  function saveStoryTimeOut(reply) {
+  function saveStoryTimeOut(reply, storyType) {
     
     var testNumber = getTestNumber();
   
@@ -1788,10 +1763,23 @@ if (Meteor.is_client) {
     result.forEach(function(data) {
       
       if (reply == true) {
-        data.storyTimeOut = 'next page';
+        if (storyType == STORYTYPE_PRACTICESTORY) {
+          data.storyPracticeTimeOut = 'next page';
+          console.log('saveStoryTimeOut storyPracticeTimeOut = '+data.storyPracticeTimeOut);
+        } else {
+          data.storyTimeOut = 'next page';
+          console.log('saveStoryTimeOut storyTimeOut = '+data.storyTimeOut);
+        }
       } 
       if (reply == false) {
-        data.storyTimeOut = 'stay';
+        if (storyType == STORYTYPE_PRACTICESTORY) {
+          data.storyPracticeTimeOut = 'stay';
+          console.log('saveStoryTimeOut storyPracticeTimeOut = '+data.storyPracticeTimeOut);
+        } else {
+          data.storyTimeOut = 'stay';
+          console.log('saveStoryTimeOut storyTimeOut = '+data.storyTimeOut);
+        }
+
       }   
       
       newResult = data;     
@@ -1800,7 +1788,7 @@ if (Meteor.is_client) {
   
     resultsInsert(testNumber, newResult);    
 
-    console.log('saveStoryTimeOut storyTimeOut = '+newResult.storyTimeOut);       
+    
   }  
 
   function savePollAnswer(pollId) {   
@@ -1883,13 +1871,12 @@ if (Meteor.is_server) {
     });      
 */
 
-/* comment out when running locally  
+/* comment out when running locally */
     Results.allow({
       'insert': function (userId,doc) { return true; },
       'remove': function (userId,doc) { return true; }
     });
-
-*/    
+/**/    
 
   });
 

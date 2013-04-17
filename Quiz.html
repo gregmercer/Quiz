@@ -33,6 +33,10 @@
 </head>
 
 <body>
+  <div id="container">
+    <span id="countdown-time"></span>
+  </div>    
+  <div id="page-blocker"></div>   
   {{> Main}}
   <div id="dialog-confirm" style="display:none;" title="Empty the recycle bin?">
     <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span><span id="dialog-content">Are you sure?</span></p>
@@ -175,10 +179,12 @@
 </template>
 
 <template name="Step8">
+  <!--
   <div id="container">
     <span id="countdown-time"></span>
-  </div>  
+  </div>
   <div id="page-blocker"></div>    
+  -->  
   <div class="box clear">
     Los Aztecas (Rangel Montemayos)<br/>
     {{#each paragraph}}
