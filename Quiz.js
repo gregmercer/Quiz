@@ -76,7 +76,7 @@ var confirmDialog = function() {
     },
     showDialog: function(title, message, yesButton, noButton) {
       $( "#dialog-confirm" ).dialog( "option", "title", title );
-      $( "#dialog-confirm" ).text("Would you like to proceed to the next page?");
+      $( "#dialog-confirm" ).text(message);
       $( "#dialog-confirm" ).dialog( "option", "buttons", [ yesButton, noButton ] );
       $( "#dialog-confirm" ).dialog( "option", "position", [300, 50] );
       $( "#dialog-confirm" ).dialog( "open" );
@@ -153,7 +153,7 @@ var counter = function() {
 
       }};          
 
-      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );
+      confirmDialog.showDialog( "WAIT", "Click yes if you completed reading the text.", yesButton, noButton );
 
     }
 
@@ -668,7 +668,7 @@ if (Meteor.is_client) {
       }};          
 
 
-      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );
+      confirmDialog.showDialog( "WAIT", "Please wait for the researcher’s go-ahead before continuing.", yesButton, noButton );
     
     }
   }; 
@@ -693,7 +693,7 @@ if (Meteor.is_client) {
         $( this ).dialog( "close" ); 
       }};          
 
-      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );
+      confirmDialog.showDialog( "WAIT", "Please wait for the researcher’s go-ahead before continuing.", yesButton, noButton );
     
     }
     
@@ -721,7 +721,7 @@ if (Meteor.is_client) {
         $( this ).dialog( "close" ); 
       }};          
 
-      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );      
+      confirmDialog.showDialog( "WAIT", "Please wait for the researcher’s go-ahead before continuing.", yesButton, noButton );
     
     }
     
@@ -749,7 +749,7 @@ if (Meteor.is_client) {
         $( this ).dialog( "close" ); 
       }};          
 
-      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );         
+      confirmDialog.showDialog( "WAIT", "Click yes if you completed reading the text.", yesButton, noButton );
     
     },
 
@@ -787,7 +787,7 @@ if (Meteor.is_client) {
         $( this ).dialog( "close" ); 
       }};          
 
-      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );          
+      confirmDialog.showDialog( "WAIT", "Please wait for the researcher’s go-ahead before continuing.", yesButton, noButton );
 
     }
     
@@ -829,7 +829,7 @@ if (Meteor.is_client) {
         $( this ).dialog( "close" ); 
       }};          
 
-      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );        
+      confirmDialog.showDialog( "WAIT", "Please wait for the researcher’s go-ahead before continuing.", yesButton, noButton );
     
     }
     
@@ -857,7 +857,7 @@ if (Meteor.is_client) {
         $( this ).dialog( "close" ); 
       }};          
 
-      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );            
+      confirmDialog.showDialog( "WAIT", "Click yes if you completed reading the text.", yesButton, noButton );
     
     },
 
@@ -895,7 +895,7 @@ if (Meteor.is_client) {
         $( this ).dialog( "close" ); 
       }};          
 
-      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );           
+      confirmDialog.showDialog( "WAIT", "Please wait for the researcher’s go-ahead before continuing.", yesButton, noButton );
 
     }
     
@@ -925,7 +925,12 @@ if (Meteor.is_client) {
 
       var yesButton =  { text: "Yes", click: function() {
 
-        savePollAnswer('survey1');
+        var answer = savePollAnswer('survey1');
+        if (answer == false) {
+          $( this ).dialog( "close" );
+          alert("Please select an answer.");
+          return;
+        }
         
         setCurrentStep("12");
 
@@ -937,7 +942,7 @@ if (Meteor.is_client) {
         $( this ).dialog( "close" ); 
       }};          
 
-      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );          
+      confirmDialog.showDialog( "WAIT", "Please wait for the researcher’s go-ahead before continuing.", yesButton, noButton );
     
     }
     
@@ -953,7 +958,12 @@ if (Meteor.is_client) {
 
       var yesButton =  { text: "Yes", click: function() {
 
-        savePollAnswer('survey2');
+        var answer = savePollAnswer('survey2');
+        if (answer == false) {
+          $( this ).dialog( "close" );
+          alert("Please select an answer.");
+          return;
+        }
         
         setCurrentStep("13");
 
@@ -965,7 +975,7 @@ if (Meteor.is_client) {
         $( this ).dialog( "close" ); 
       }};          
 
-      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );        
+      confirmDialog.showDialog( "WAIT", "Please wait for the researcher’s go-ahead before continuing.", yesButton, noButton );
     
     }
     
@@ -981,7 +991,12 @@ if (Meteor.is_client) {
 
       var yesButton =  { text: "Yes", click: function() {
 
-        savePollAnswer('survey3');
+        var answer = savePollAnswer('survey3');
+        if (answer == false) {
+          $( this ).dialog( "close" );
+          alert("Please select an answer.");
+          return;
+        }
         
         setCurrentStep("14");
 
@@ -993,7 +1008,7 @@ if (Meteor.is_client) {
         $( this ).dialog( "close" ); 
       }};          
 
-      confirmDialog.showDialog( "Please Confirm", "Would you like to proceed to the next page?", yesButton, noButton );          
+      confirmDialog.showDialog( "WAIT", "Please wait for the researcher’s go-ahead before continuing.", yesButton, noButton );
     
     }
     
@@ -1803,7 +1818,6 @@ if (Meteor.is_client) {
   
     var checkedValue = answerRadio.filter(':checked').val();
     if (checkedValue == undefined) {
-      alert("Please select an answer.");
       return false;
     }
 
