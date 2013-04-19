@@ -153,7 +153,7 @@ var counter = function() {
 
       }};          
 
-      confirmDialog.showDialog( "WAIT", "Click yes if you completed reading the text.", yesButton, noButton );
+      confirmDialog.showDialog( "Answer Carefully", "Click yes if you completed reading the text.", yesButton, noButton );
 
     }
 
@@ -749,7 +749,7 @@ if (Meteor.is_client) {
         $( this ).dialog( "close" ); 
       }};          
 
-      confirmDialog.showDialog( "WAIT", "Click yes if you completed reading the text.", yesButton, noButton );
+      confirmDialog.showDialog( "Answer Carefully", "Click yes if you completed reading the text.", yesButton, noButton );
     
     },
 
@@ -857,7 +857,7 @@ if (Meteor.is_client) {
         $( this ).dialog( "close" ); 
       }};          
 
-      confirmDialog.showDialog( "WAIT", "Click yes if you completed reading the text.", yesButton, noButton );
+      confirmDialog.showDialog( "Answer Carefully", "Click yes if you completed reading the text.", yesButton, noButton );
     
     },
 
